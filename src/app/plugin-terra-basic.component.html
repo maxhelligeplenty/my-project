@@ -1,0 +1,195 @@
+<div class="user-interface">
+    <terra-portlet>
+        <terra-text-input>
+        </terra-text-input>
+        <terra-text-input>
+        </terra-text-input>
+        <terra-text-input>
+        </terra-text-input>
+        <terra-text-input>
+        </terra-text-input>
+        <terra-text-input>
+        </terra-text-input>
+        <terra-text-input>
+        </terra-text-input>
+        <terra-text-input>
+        </terra-text-input>
+    </terra-portlet>
+</div>
+
+<div class="doc-template">
+    <div class="header">
+        <div>
+            <p><strong>Name und Vorname des Auszubildenden:</strong> xxx, xxx </p>
+            <p>
+                <span style="float:right;"><strong>0. Ausbildungsjahr</strong></span>
+            </p>
+            <p>
+                <span><strong>Ausbildungsnachweis Nr.</strong> 00</span>
+                <span style="float:right;"><strong>für die Woche vom</strong> {{_currentWeekDateRange[0]['monday']}} bis {{_currentWeekDateRange[0]['friday']}}</span>
+            </p>
+            <p><strong>Betrieblicher Funktionsbereich:</strong> xxx </p>
+        </div>
+    </div>
+    <div class="table-content">
+        <table width="723" border="2" cellpadding="6" cellspacing="0">
+            <tbody>
+            <tr>
+                <td width="74">
+                    <strong>Datum</strong>
+                </td>
+                <td colspan="2" width="450">
+                    <p align="CENTER">
+                        <strong>
+                            Betriebliche Tätigkeiten, Betriebliche Schulungen,
+                            Berufsschulunterricht usw.
+                        </strong>
+                    </p>
+                </td>
+                <td width="74">
+                    <p align="CENTER">
+                        <strong>
+                            Einzel-
+                            <br/>
+                            stunden
+                        </strong>
+                    </p>
+                </td>
+                <td width="73">
+                    <p align="CENTER">
+                        <strong>Gesamt-stunden</strong>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="74">
+                    {{_currentWeekDateRange[0]['monday']}}
+                </td>
+                <td colspan="2" width="450">
+                    <p align="LEFT">
+                    </p>
+                </td>
+                <td width="74">
+                    <p align="CENTER">
+                    </p>
+                </td>
+                <td width="73">
+                    <p align="CENTER">
+                        0
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="74">
+                    {{_currentWeekDateRange[0]['tuesday']}}
+                </td>
+                <td colspan="2" width="450">
+                    <p align="LEFT">
+                    </p>
+                </td>
+                <td width="74">
+                    <p align="CENTER">
+                    </p>
+                </td>
+                <td width="73">
+                    <p align="CENTER">
+                        0
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="74">
+                    {{_currentWeekDateRange[0]['wednesday']}}
+                </td>
+                <td colspan="2" width="450">
+                    <p align="LEFT">
+                    </p>
+                </td>
+                <td width="74">
+                    <p align="CENTER">
+                    </p>
+                </td>
+                <td width="73">
+                    <p align="CENTER">
+                        0
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="74">
+                    {{_currentWeekDateRange[0]['thursday']}}
+                </td>
+                <td colspan="2" width="450">
+                    <p align="LEFT">
+                    </p>
+                </td>
+                <td width="74">
+                    <p align="CENTER">
+                    </p>
+                </td>
+                <td width="73">
+                    <p align="CENTER">
+                        0
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="74">
+                    {{_currentWeekDateRange[0]['friday']}}
+                </td>
+                <td colspan="2" width="450">
+                    <p align="LEFT">
+                    </p>
+                </td>
+                <td width="74">
+                    <p align="CENTER">
+                    </p>
+                </td>
+                <td width="73">
+                    <p align="CENTER">
+                        0
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" width="622">
+                    <p align="RIGHT">
+                        <strong>Gesamtstunden der Ausbildungswoche</strong>
+                    </p>
+                </td>
+                <td width="73" valign="TOP">
+                    <p align="CENTER">
+                        00
+                    </p>
+                </td>
+            </tr>
+            <tr valign="TOP">
+                <td colspan="2" width="354">
+                    <p align="RIGHT">
+                        <strong>Auszubildender</strong>
+                    </p>
+                    <p align="LEFT">
+                        ....................
+                        ...................................................
+                    </p>
+                    <p align="LEFT">
+                        Datum und Unterschrift
+                    </p>
+                </td>
+                <td colspan="3" width="341">
+                    <p align="RIGHT">
+                        <strong>Ausbildender bzw. Ausbilder</strong>
+                    </p>
+                    <p align="LEFT">
+                        ....................
+                        ................................................
+                    </p>
+                    <p align="LEFT">
+                        Datum und Unterschrift
+                    </p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
