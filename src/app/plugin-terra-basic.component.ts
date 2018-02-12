@@ -1,7 +1,9 @@
 import {
     Component,
-    OnInit
+    OnInit,
+    ViewChild
 } from '@angular/core';
+import { TerraOverlayComponent } from '@plentymarkets/terra-components';
 const currentWeekNumber = require('current-week-number');
 const moment = require('moment');
 
@@ -12,8 +14,11 @@ const moment = require('moment');
 })
 export class PluginTerraBasicComponent implements OnInit
 {
+    @ViewChild('DataOverlay') public viewDataOverlay:TerraOverlayComponent;
 
     private _currentWeekDateRange:Array<string> = [];
+    private _customerData:Array<string> = [];
+    private _textForeachDay:Array<string> = [];
 
     constructor()
     {
@@ -29,28 +34,27 @@ export class PluginTerraBasicComponent implements OnInit
         let currentDate = new Date();
         let currentWeek = currentWeekNumber(currentDate);
         this._currentWeekDateRange = this.getDateRangeOfCurrentWeek(currentWeek);
-        console.log(this._currentWeekDateRange);
     }
 
     private getDateRangeOfCurrentWeek(weekNumber):Array<string>
     {
         let dateRange = [];
-        let monday = moment().week(weekNumber).startOf('week').add(1, 'days').format('DD.MM.YYYY');
-        let tuesday = moment().week(weekNumber).startOf('week').add(2, 'days').format('DD.MM.YYYY');
-        let wednesday = moment().week(weekNumber).startOf('week').add(3, 'days').format('DD.MM.YYYY');
-        let thursday = moment().week(weekNumber).startOf('week').add(4, 'days').format('DD.MM.YYYY');
-        let friday = moment().week(weekNumber).startOf('week').add(5, 'days').format('DD.MM.YYYY');
 
         dateRange.push({
-            monday:    monday,
-            tuesday:   tuesday,
-            wednesday: wednesday,
-            thursday:  thursday,
-            friday:    friday
+            monday:    moment().week(weekNumber).startOf('week').add(1, 'days').format('DD.MM.YYYY'),
+            tuesday:   moment().week(weekNumber).startOf('week').add(2, 'days').format('DD.MM.YYYY'),
+            wednesday: moment().week(weekNumber).startOf('week').add(3, 'days').format('DD.MM.YYYY'),
+            thursday:  moment().week(weekNumber).startOf('week').add(4, 'days').format('DD.MM.YYYY'),
+            friday:    moment().week(weekNumber).startOf('week').add(5, 'days').format('DD.MM.YYYY')
         });
 
         return dateRange;
 
+    }
+
+    private openDataOverlay():void
+    {
+        this.viewDataOverlay.showOverlay();
     }
 
 }

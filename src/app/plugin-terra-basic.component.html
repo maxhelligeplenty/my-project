@@ -1,34 +1,70 @@
 <div class="user-interface">
-    <terra-portlet>
-        <terra-text-input>
-        </terra-text-input>
-        <terra-text-input>
-        </terra-text-input>
-        <terra-text-input>
-        </terra-text-input>
-        <terra-text-input>
-        </terra-text-input>
-        <terra-text-input>
-        </terra-text-input>
-        <terra-text-input>
-        </terra-text-input>
-        <terra-text-input>
-        </terra-text-input>
-    </terra-portlet>
+    <terra-button inputCaption="Add Data"
+                  (outputClicked)="openDataOverlay()">
+    </terra-button>
+    <terra-overlay #DataOverlay>
+        <terra-portlet>
+            <div class="personal_infos">
+                <terra-text-input
+                    inputName="Vorname"
+                    [(ngModel)]="_customerData[0]">
+                </terra-text-input>
+                <terra-text-input
+                    inputName="Nachname"
+                    [(ngModel)]="_customerData[1]">
+                </terra-text-input>
+                <terra-text-input
+                    inputName="Ausbildungsjahr"
+                    [(ngModel)]="_customerData[2]">
+                </terra-text-input>
+                <terra-text-input
+                    inputName="Berichtsnummer"
+                    [(ngModel)]="_customerData[3]">
+                </terra-text-input>
+                <terra-text-input
+                    inputName="Abteilung"
+                    [(ngModel)]="_customerData[4]">
+                </terra-text-input>
+            </div>
+            <div>
+                <terra-note-editor
+                    [(ngModel)]="_textForeachDay[0]">
+                </terra-note-editor>
+                <terra-text-area-input
+                    inputName="Dienstag"
+                    [(ngModel)]="_textForeachDay[1]">
+                </terra-text-area-input>
+                <terra-text-area-input
+                    inputName="Mittwoch"
+                    [(ngModel)]="_textForeachDay[2]">
+                </terra-text-area-input>
+                <terra-text-area-input
+                    inputName="Donnerstag"
+                    [(ngModel)]="_textForeachDay[3]">
+                </terra-text-area-input>
+                <terra-text-area-input
+                    inputName="Freitag"
+                    [(ngModel)]="_textForeachDay[4]">
+                </terra-text-area-input>
+            </div>
+            <terra-button
+                (outputClicked)="saveData()">
+            </terra-button>
+        </terra-portlet>
+    </terra-overlay>
 </div>
-
 <div class="doc-template">
     <div class="header">
         <div>
-            <p><strong>Name und Vorname des Auszubildenden:</strong> xxx, xxx </p>
+            <p><strong>Name und Vorname des Auszubildenden:</strong> {{_customerData[1]}}, {{_customerData[0]}} </p>
             <p>
-                <span style="float:right;"><strong>0. Ausbildungsjahr</strong></span>
+                <span style="float:right;"><strong>{{_customerData[2]}}. Ausbildungsjahr</strong></span>
             </p>
             <p>
-                <span><strong>Ausbildungsnachweis Nr.</strong> 00</span>
+                <span><strong>Ausbildungsnachweis Nr.</strong> {{_customerData[3]}}</span>
                 <span style="float:right;"><strong>für die Woche vom</strong> {{_currentWeekDateRange[0]['monday']}} bis {{_currentWeekDateRange[0]['friday']}}</span>
             </p>
-            <p><strong>Betrieblicher Funktionsbereich:</strong> xxx </p>
+            <p><strong>Betrieblicher Funktionsbereich:</strong> {{_customerData[4]}} </p>
         </div>
     </div>
     <div class="table-content">
@@ -67,6 +103,7 @@
                 </td>
                 <td colspan="2" width="450">
                     <p align="LEFT">
+                        {{_textForeachDay[0]}}
                     </p>
                 </td>
                 <td width="74">
@@ -85,6 +122,7 @@
                 </td>
                 <td colspan="2" width="450">
                     <p align="LEFT">
+                        {{_textForeachDay[1]}}
                     </p>
                 </td>
                 <td width="74">
@@ -103,6 +141,7 @@
                 </td>
                 <td colspan="2" width="450">
                     <p align="LEFT">
+                        {{_textForeachDay[2]}}
                     </p>
                 </td>
                 <td width="74">
@@ -121,6 +160,7 @@
                 </td>
                 <td colspan="2" width="450">
                     <p align="LEFT">
+                        {{_textForeachDay[3]}}
                     </p>
                 </td>
                 <td width="74">
@@ -139,6 +179,7 @@
                 </td>
                 <td colspan="2" width="450">
                     <p align="LEFT">
+                        {{_textForeachDay[4]}}
                     </p>
                 </td>
                 <td width="74">
