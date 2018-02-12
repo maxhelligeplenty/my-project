@@ -2,6 +2,9 @@
     <terra-button inputCaption="Add Data"
                   (outputClicked)="openDataOverlay()">
     </terra-button>
+    <terra-button inputCaption="Clear Data"
+        (outputClicked)="clearData()">
+    </terra-button>
     <terra-overlay #DataOverlay>
         <terra-portlet>
             <div class="personal_infos">
@@ -47,9 +50,6 @@
                     [(ngModel)]="_textForeachDay[4]">
                 </terra-text-area-input>
             </div>
-            <terra-button
-                (outputClicked)="saveData()">
-            </terra-button>
         </terra-portlet>
     </terra-overlay>
 </div>

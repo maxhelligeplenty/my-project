@@ -57,4 +57,10 @@ export class PluginTerraBasicComponent implements OnInit
         this.viewDataOverlay.showOverlay();
     }
 
+    private clearData()
+    {
+        this._customerData = [];
+        this._textForeachDay = [];
+    }
+
 }
