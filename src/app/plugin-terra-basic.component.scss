@@ -1,20 +1,27 @@
-.header
-{
-    p
-    {
-        display: list-item;
-    }
-}
-
 .user-interface
 {
     .form-block
     {
         margin-bottom: 25px;
     }
-}
-
-.doc-template
-{
-    
+    .action-list-wrapper
+    {
+        margin-top: 25px;
+        justify-content: center;
+        align-content: center;
+        display: flex;
+        .action-list
+        {
+            li
+            {
+                float: left;
+                list-style: none;
+                margin-right: 20px;
+                a
+                {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
 }
