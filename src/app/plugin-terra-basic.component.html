@@ -279,11 +279,10 @@
     </div>
 </div>
 <div>
-    <terra-button
-        inputCaption="Speichern"
-        (outputClicked)="saveAsDoc()">
-    </terra-button>
+    <!--<terra-button-->
+    <!--inputCaption="Speichern"-->
+    <!--(outputClicked)="saveAsDoc()">-->
+    <!--</terra-button>-->
 </div>
-<div>{{_newDocument}}</div>
+<div *ngIf="_newDocument != ''">{{_newDocument}}</div>
 <terra-alert-panel></terra-alert-panel>
-

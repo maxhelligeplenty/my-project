@@ -25,7 +25,7 @@ export class PluginTerraBasicComponent implements OnInit
     private _customerData:Array<string> = [];
     private _textForeachDay:Array<string> = [];
     private _dateRange:Array<string> = [];
-    private _newDocument:any;
+    private _newDocument:string;
 
     constructor()
     {
@@ -62,8 +62,8 @@ export class PluginTerraBasicComponent implements OnInit
     private changeWeekDate()
     {
 
-        if(!isNullOrUndefined(this._dateRange[0]) && this._dateRange[0] != ''
-           && !isNullOrUndefined(this._dateRange[1]) && this._dateRange[1] != '')
+        if(!isNullOrUndefined(this._dateRange[0]) && this._dateRange[0] !== ''
+           && !isNullOrUndefined(this._dateRange[1]) && this._dateRange[1] !== '')
         {
             let checkMonday:number = new Date(moment(this._dateRange[0]).format('YYYY-MM-DD')).getDay();
             let checkFriday:number = new Date(moment(this._dateRange[1]).format('YYYY-MM-DD')).getDay();
@@ -120,13 +120,87 @@ export class PluginTerraBasicComponent implements OnInit
     {
         this._customerData = [];
         this._textForeachDay = [];
+        this._newDocument = '';
         this.getWeekDates();
     }
 
-    private saveAsDoc()
-    {
-        this._newDocument = document.getElementsByClassName("toHtml")[0].innerHTML.toString();
-        console.log(this._newDocument);
-    }
+    //private saveAsDoc()
+    //{
+    //    if(!isNullOrUndefined(this._customerData[0]) && !isNullOrUndefined(this._customerData[1]) &&
+    //       !isNullOrUndefined(this._customerData[3]))
+    //    {
+    //        this._newDocument =
+    //            document.getElementsByClassName("toHtml")[0].innerHTML.toString();
+    //        htmlToPdf.convertHTMLString(this._newDocument,
+    //            'src/app/plugin-terra-basic.component.pdf', function(error, success)
+    //            {
+    //                if(error)
+    //                {
+    //                    console.log('Oh noes! Errorz!');
+    //                    console.log(error);
+    //                }
+    //                else
+    //                {
+    //                    console.log('Woot! Success!');
+    //                    console.log(success);
+    //                }
+    //            });
+    //    }
+    //    else
+    //    {
+    //    }
+    //}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
