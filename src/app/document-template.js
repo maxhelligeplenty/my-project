@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var terra_components_1 = require("@plentymarkets/terra-components");
 var util_1 = require("util");
-var currentWeekNumber = require('current-week-number');
-var moment = require('moment');
+var currentWeekNumber = require("current-week-number");
+var moment = require("moment");
 var PluginTerraBasicComponent = (function () {
     function PluginTerraBasicComponent() {
         this._errorAlert = terra_components_1.TerraAlertComponent.getInstance();
@@ -89,14 +89,45 @@ var PluginTerraBasicComponent = (function () {
     PluginTerraBasicComponent.prototype.clearData = function () {
         this._customerData = [];
         this._textForeachDay = [];
-        this._newDocument = '';
         this.getWeekDates();
+    };
+    PluginTerraBasicComponent.prototype.saveAsDoc = function () {
+        if (!util_1.isNullOrUndefined(this._customerData[0]) && !util_1.isNullOrUndefined(this._customerData[1]) &&
+            !util_1.isNullOrUndefined(this._customerData[3])) {
+            var newDocument = document.getElementsByClassName("toHtml")[0].innerHTML.toString();
+            //newDocument = '%PDF-1.6' +
+            //              '1 0 obj << /Type /Catalog /Pages 2 0 R /OpenAction 2 0 R >> endobj' +
+            //              '1 0 obj << /Lenght 295 / Filter /FlateDecode >>' +
+            //              'stream' +
+            //              newDocument +
+            //              'endstream' +
+            //              'endobject' +
+            //              'xref' +
+            //              '0 7' +
+            //              '0000000000 65535 f' +
+            //              '0000000250 00000 n' +
+            //              '0000000317 00000 n' +
+            //              'trailer' +
+            //              '<< /Root 1 0 R /Size 10 >>' +
+            //              'startxref' +
+            //              '8126' +
+            //              '%EOF';
+            var documentStream = btoa(newDocument);
+            var fileURL = URL.createObjectURL(terra_components_1.TerraPdfHelper.createPdfBlob(documentStream));
+            console.log(documentStream);
+            var link = document.createElement('a');
+            link.href = fileURL;
+            link.download = this._customerData[0] + '-' + this._customerData[1] + '-' + this._customerData[3] + '.odt';
+            link.click();
+        }
+        else {
+        }
     };
     return PluginTerraBasicComponent;
 }());
 __decorate([
     core_1.ViewChild('DataOverlay'),
-    __metadata("design:type", typeof (_a = typeof terra_components_1.TerraOverlayComponent !== "undefined" && terra_components_1.TerraOverlayComponent) === "function" && _a || Object)
+    __metadata("design:type", terra_components_1.TerraOverlayComponent)
 ], PluginTerraBasicComponent.prototype, "viewDataOverlay", void 0);
 PluginTerraBasicComponent = __decorate([
     core_1.Component({
@@ -107,5 +138,4 @@ PluginTerraBasicComponent = __decorate([
     __metadata("design:paramtypes", [])
 ], PluginTerraBasicComponent);
 exports.PluginTerraBasicComponent = PluginTerraBasicComponent;
-var _a;
 //# sourceMappingURL=plugin-terra-basic.component.js.map

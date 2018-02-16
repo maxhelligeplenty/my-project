@@ -5,18 +5,19 @@ import {
 } from '@angular/core';
 import {
     TerraAlertComponent,
-    TerraOverlayComponent
+    TerraOverlayComponent,
+    TerraPdfHelper
 } from '@plentymarkets/terra-components';
 import { isNullOrUndefined } from 'util';
-const currentWeekNumber = require('current-week-number');
-const moment = require('moment');
+import * as currentWeekNumber from 'current-week-number';
+import * as moment from 'moment';
 
 @Component({
-    selector: 'plugin-terra-basic-app',
-    template: require('./plugin-terra-basic.component.html'),
-    styles:   [require('./plugin-terra-basic.component.scss')]
+    selector: 'document-template',
+    template: require('./document-template.html'),
+    styles:   [require('./document-template.scss')]
 })
-export class PluginTerraBasicComponent implements OnInit
+export class DocumentTemplate implements OnInit
 {
     @ViewChild('DataOverlay') public viewDataOverlay:TerraOverlayComponent;
     private _errorAlert:TerraAlertComponent = TerraAlertComponent.getInstance();
@@ -25,7 +26,6 @@ export class PluginTerraBasicComponent implements OnInit
     private _customerData:Array<string> = [];
     private _textForeachDay:Array<string> = [];
     private _dateRange:Array<string> = [];
-    private _newDocument:string;
 
     constructor()
     {
@@ -120,36 +120,33 @@ export class PluginTerraBasicComponent implements OnInit
     {
         this._customerData = [];
         this._textForeachDay = [];
-        this._newDocument = '';
         this.getWeekDates();
     }
 
-    //private saveAsDoc()
-    //{
-    //    if(!isNullOrUndefined(this._customerData[0]) && !isNullOrUndefined(this._customerData[1]) &&
-    //       !isNullOrUndefined(this._customerData[3]))
-    //    {
-    //        this._newDocument =
-    //            document.getElementsByClassName("toHtml")[0].innerHTML.toString();
-    //        htmlToPdf.convertHTMLString(this._newDocument,
-    //            'src/app/plugin-terra-basic.component.pdf', function(error, success)
-    //            {
-    //                if(error)
-    //                {
-    //                    console.log('Oh noes! Errorz!');
-    //                    console.log(error);
-    //                }
-    //                else
-    //                {
-    //                    console.log('Woot! Success!');
-    //                    console.log(success);
-    //                }
-    //            });
-    //    }
-    //    else
-    //    {
-    //    }
-    //}
+    private saveAsDoc()
+    {
+        if(!isNullOrUndefined(this._customerData[0]) && !isNullOrUndefined(this._customerData[1]) &&
+           !isNullOrUndefined(this._customerData[3]))
+        {
+            let newDocument = document.getElementsByClassName("toHtml")[0].innerHTML.toString();
+            let documentStream = btoa(newDocument);
+            let fileURL:string = URL.createObjectURL(TerraPdfHelper.createPdfBlob(documentStream));
+            console.log(documentStream);
+            let link:any = document.createElement('a');
+            link.href = fileURL;
+            link.download = this._customerData[0] + '-' + this._customerData[1] + '-' + this._customerData[3] + '.odt';
+            link.click();
+        }
+        else
+        {
+            this._errorAlert.addAlert({
+                msg:              'You have to fill in at least Firstname, Lastname and Number of File',
+                type:             'danger',
+                dismissOnTimeout: 10000,
+                identifier:       'add some Data to create a File'
+            });
+        }
+    }
 
 }
 

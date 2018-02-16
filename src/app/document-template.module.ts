@@ -3,11 +3,9 @@ import {
     NgModule
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { PluginTerraBasicComponent } from './plugin-terra-basic.component';
-import { StartComponent } from './start/start.component';
+import { DocumentTemplate } from './document-template';
 import { TerraComponentsModule } from '@plentymarkets/terra-components/app/terra-components.module';
 import { HttpModule } from '@angular/http';
-import { TestComponent } from './test/test.component';
 import { TranslationModule } from 'angular-l10n';
 import { FormsModule } from '@angular/forms';
 import { LocalizationConfig } from './core/localization/terra-localization.config';
@@ -21,9 +19,7 @@ import { LocalizationConfig } from './core/localization/terra-localization.confi
         TerraComponentsModule.forRoot()
     ],
     declarations: [
-        PluginTerraBasicComponent,
-        StartComponent,
-        TestComponent
+        DocumentTemplate,
     ],
     providers:    [
         LocalizationConfig,
@@ -35,7 +31,7 @@ import { LocalizationConfig } from './core/localization/terra-localization.confi
         }
     ],
     bootstrap:    [
-        PluginTerraBasicComponent
+        DocumentTemplate
     ]
 })
 export class PluginTerraBasicModule

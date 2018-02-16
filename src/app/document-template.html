@@ -93,28 +93,30 @@
                   (outputClicked)="clearData()">
     </terra-button>
 </div>
-<div class="toHtml" style="display:none;">
-    <div class="doc-template-wrapper" style="">
-        <div class="doc-template" style="width: 725px;margin-left: auto;margin-right: auto;">
-            <div class="header">
-                <div>
-                    <p>
-                        <strong>Name und Vorname des Auszubildenden:</strong> {{_customerData[1]}}, {{_customerData[0]}} </p>
-                    <p align="RIGHT">
-                        <span><strong>{{_customerData[2]}}. Ausbildungsjahr</strong></span>
-                    </p>
-                    <p>
-                        <span><strong>Ausbildungsnachweis Nr.</strong> {{_customerData[3]}}</span>
-                    </p>
-                    <p align="RIGHT">
-                        <span><strong>für die Woche vom</strong> {{_currentWeekDateRange[0]['monday']}} bis {{_currentWeekDateRange[0]['friday']}}</span>
-                    </p>
-                    <p>
-                        <strong>Betrieblicher Funktionsbereich:</strong> {{_customerData[4]}}
-                    </p>
+<div class="toHtml">
+    <div class="doc-template-wrapper">
+        <div class="doc-template" style="width: 100%;">
+            <div class="header-wrapper" style="width: 100%;">
+                <div class="header" style="width: 725px;margin-right: auto;margin-left: auto;">
+                    <div>
+                        <p>
+                            <strong>Name und Vorname des Auszubildenden:</strong> {{_customerData[1]}}, {{_customerData[0]}} </p>
+                        <p>
+                            <strong>{{_customerData[2]}}. Ausbildungsjahr</strong>
+                        </p>
+                        <p>
+                            <strong>Ausbildungsnachweis Nr.</strong> {{_customerData[3]}}
+                        </p>
+                        <p>
+                            <strong>für die Woche vom</strong> {{_currentWeekDateRange[0]['monday']}} bis {{_currentWeekDateRange[0]['friday']}}
+                        </p>
+                        <p>
+                            <strong>Betrieblicher Funktionsbereich:</strong> {{_customerData[4]}}
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="table-content">
+            <div class="table-content" align="CENTER">
                 <table width="723" border="2" cellpadding="6" cellspacing="0">
                     <tbody>
                     <tr>
@@ -279,10 +281,9 @@
     </div>
 </div>
 <div>
-    <!--<terra-button-->
-    <!--inputCaption="Speichern"-->
-    <!--(outputClicked)="saveAsDoc()">-->
-    <!--</terra-button>-->
+    <terra-button
+        inputCaption="Speichern"
+        (outputClicked)="saveAsDoc()">
+    </terra-button>
 </div>
-<div *ngIf="_newDocument != ''">{{_newDocument}}</div>
 <terra-alert-panel></terra-alert-panel>
