@@ -1,6 +1,37 @@
+<terra-alert-panel></terra-alert-panel>
 <div class="user-interface">
-    <terra-overlay #DataOverlay>
-        <div class="user-data">
+    <!--UserInterface (Overlay oder whatever) in eine eigene Komponente mit Save Data und get Data-->
+    <terra-portlet>
+        <div class="row">
+            <div class="col-md-4">
+                <terra-button inputIcon="icon-save"
+                              inputTooltipText="Export As Doc"
+                              inputTooltipPlacement="right"
+                              (outputClicked)="exportAsDoc()">
+                </terra-button>
+            </div>
+            <div class="col-md-8">
+                <div class="btn-group pull-lg-right">
+                    <terra-button inputIcon="icon-add"
+                                  inputIsTertiary="true"
+                                  inputTooltipText="Add Data"
+                                  inputTooltipPlacement="bottom"
+                                  (outputClicked)="addData()">
+                    </terra-button>
+                    <terra-button inputIcon="icon-delete"
+                                  inputIsSecondary="true"
+                                  inputTooltipText="Clear Data"
+                                  inputTooltipPlacement="bottom"
+                                  (outputClicked)="clearData()">
+                    </terra-button>
+                </div>
+            </div>
+        </div>
+    </terra-portlet>
+</div>
+<div>
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-block">
                 <terra-portlet inputPortletHeader="Persönliche Daten">
                     <terra-text-input
@@ -25,8 +56,25 @@
                     </terra-text-input>
                 </terra-portlet>
             </div>
+            <div class="form-block">
+                <terra-portlet inputPortletHeader="Neues Datum">
+                    <div>
+                        <terra-date-picker inputName="Startdatum"
+                                           [(ngModel)]="_dateRange[0]">
+                        </terra-date-picker>
+                        <terra-date-picker inputName="Enddatum"
+                                           [(ngModel)]="_dateRange[1]">
+                        </terra-date-picker>
+                    </div>
+                    <div>
+                        <terra-button inputCaption="Save Date"
+                                      (outputClicked)="changeWeekDate()">
+                        </terra-button>
+                    </div>
+                </terra-portlet>
+            </div>
         </div>
-        <div class="textarea-container">
+        <div class="col-md-6">
             <div class="form-block">
                 <terra-portlet inputPortletHeader="Wochenberichte">
                     <div>
@@ -67,57 +115,51 @@
                 </terra-portlet>
             </div>
         </div>
-        <div class="new-date">
-            <div class="form-block">
-                <terra-portlet inputPortletHeader="Neues Datum">
-                    <div>
-                        <terra-date-picker inputName="Startdatum"
-                                           [(ngModel)]="_dateRange[0]">
-                        </terra-date-picker>
-                        <terra-date-picker inputName="Enddatum"
-                                           [(ngModel)]="_dateRange[1]">
-                        </terra-date-picker>
-                    </div>
-                    <div>
-                        <terra-button inputCaption="Save Date"
-                                      (outputClicked)="changeWeekDate()">
-                        </terra-button>
-                    </div>
-                </terra-portlet>
-            </div>
-        </div>
-    </terra-overlay>
-    <terra-button inputCaption="Add Data"
-                  (outputClicked)="openDataOverlay()"></terra-button>
-    <terra-button inputCaption="Clear Data"
-                  (outputClicked)="clearData()">
-    </terra-button>
+    </div>
 </div>
-<div class="toHtml">
+
+
+<div class="toHtml" style="display: none;">
     <div class="doc-template-wrapper">
-        <div class="doc-template" style="width: 100%;">
-            <div class="header-wrapper" style="width: 100%;">
-                <div class="header" style="width: 725px;margin-right: auto;margin-left: auto;">
-                    <div>
-                        <p>
-                            <strong>Name und Vorname des Auszubildenden:</strong> {{_customerData[1]}}, {{_customerData[0]}} </p>
-                        <p>
-                            <strong>{{_customerData[2]}}. Ausbildungsjahr</strong>
-                        </p>
-                        <p>
-                            <strong>Ausbildungsnachweis Nr.</strong> {{_customerData[3]}}
-                        </p>
-                        <p>
-                            <strong>für die Woche vom</strong> {{_currentWeekDateRange[0]['monday']}} bis {{_currentWeekDateRange[0]['friday']}}
-                        </p>
-                        <p>
-                            <strong>Betrieblicher Funktionsbereich:</strong> {{_customerData[4]}}
-                        </p>
-                    </div>
+        <div class="doc-template">
+            <div class="header-wrapper" align="CENTER">
+                <div>
+                    <table align="CENTER" border="0" style="border-color: white;">
+                        <tbody>
+                        <tr style="border-color: white;">
+                            <td width="723" style="border-color: white;">
+                                <p align="LEFT">
+                                    <strong>Name und Vorname des Auszubildenden: </strong>{{_customerData[1]}}, {{_customerData[0]}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p align="RIGHT"><strong>{{_customerData[2]}}. Ausbildungsjahr</strong></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p align="LEFT"><strong>Ausbildungsnachweis Nr.</strong> {{_customerData[3]}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p align="RIGHT">
+                                    <strong>für die Woche vom</strong> {{_currentWeekDateRange[0]['monday']}} bis {{_currentWeekDateRange[0]['friday']}}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p align="LEFT"><strong>Betrieblicher Funktionsbereich:</strong> {{_customerData[4]}}</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="table-content" align="CENTER">
-                <table width="723" border="2" cellpadding="6" cellspacing="0">
+            <div class="table-content">
+                <table width="723" border="2" cellpadding="6" cellspacing="0" align="CENTER">
                     <tbody>
                     <tr>
                         <td width="74">
@@ -249,7 +291,7 @@
                         </td>
                     </tr>
                     <tr valign="TOP">
-                        <td colspan="2" width="354">
+                        <td colspan="2" width="410">
                             <p align="RIGHT">
                                 <strong>Auszubildender</strong>
                             </p>
@@ -261,7 +303,7 @@
                                 Datum und Unterschrift
                             </p>
                         </td>
-                        <td colspan="3" width="341">
+                        <td colspan="3" width="285">
                             <p align="RIGHT">
                                 <strong>Ausbildender bzw. Ausbilder</strong>
                             </p>
@@ -280,10 +322,3 @@
         </div>
     </div>
 </div>
-<div>
-    <terra-button
-        inputCaption="Speichern"
-        (outputClicked)="saveAsDoc()">
-    </terra-button>
-</div>
-<terra-alert-panel></terra-alert-panel>

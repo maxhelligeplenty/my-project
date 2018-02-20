@@ -1,11 +1,9 @@
 import {
     Component,
-    OnInit,
-    ViewChild
+    OnInit
 } from '@angular/core';
 import {
     TerraAlertComponent,
-    TerraOverlayComponent,
     TerraPdfHelper
 } from '@plentymarkets/terra-components';
 import { isNullOrUndefined } from 'util';
@@ -19,13 +17,13 @@ import * as moment from 'moment';
 })
 export class DocumentTemplate implements OnInit
 {
-    @ViewChild('DataOverlay') public viewDataOverlay:TerraOverlayComponent;
     private _errorAlert:TerraAlertComponent = TerraAlertComponent.getInstance();
 
     private _currentWeekDateRange:Array<string> = [];
     private _customerData:Array<string> = [];
     private _textForeachDay:Array<string> = [];
     private _dateRange:Array<string> = [];
+    private _templateData:Array<any> = [];
 
     constructor()
     {
@@ -111,9 +109,29 @@ export class DocumentTemplate implements OnInit
         }
     }
 
-    private openDataOverlay():void
+    private addData()
     {
-        this.viewDataOverlay.showOverlay();
+        if(!isNullOrUndefined(this._customerData[0]) && !isNullOrUndefined(this._customerData[1]) &&
+           !isNullOrUndefined(this._customerData[3]))
+        {
+            let newDocument = document.getElementsByClassName("toHtml")[0].innerHTML.toString();
+            let documentStream = btoa(newDocument);
+            let fileURL:string = URL.createObjectURL(TerraPdfHelper.createPdfBlob(documentStream));
+            this._templateData.push(
+                {
+                    "fileStream": fileURL,
+                    "fileName":   this._customerData[0] + '-' + this._customerData[1] + '-' + this._customerData[3] + '.odt'
+                });
+        }
+        else
+        {
+            this._errorAlert.addAlert({
+                msg:              'You have to fill in at least Firstname, Lastname and Number of File',
+                type:             'danger',
+                dismissOnTimeout: 10000,
+                identifier:       'add some Data to create a Filestream'
+            });
+        }
     }
 
     private clearData()
@@ -123,27 +141,26 @@ export class DocumentTemplate implements OnInit
         this.getWeekDates();
     }
 
-    private saveAsDoc()
+    private exportAsDoc()
     {
-        if(!isNullOrUndefined(this._customerData[0]) && !isNullOrUndefined(this._customerData[1]) &&
-           !isNullOrUndefined(this._customerData[3]))
+        if(this._templateData.length > 0)
         {
-            let newDocument = document.getElementsByClassName("toHtml")[0].innerHTML.toString();
-            let documentStream = btoa(newDocument);
-            let fileURL:string = URL.createObjectURL(TerraPdfHelper.createPdfBlob(documentStream));
-            console.log(documentStream);
             let link:any = document.createElement('a');
-            link.href = fileURL;
-            link.download = this._customerData[0] + '-' + this._customerData[1] + '-' + this._customerData[3] + '.odt';
-            link.click();
+            this._templateData.forEach(function(fileData)
+            {
+                link.href = fileData['fileStream'];
+                link.download = fileData['fileName'];
+                link.click();
+            });
+            this._templateData = [];
         }
         else
         {
             this._errorAlert.addAlert({
-                msg:              'You have to fill in at least Firstname, Lastname and Number of File',
+                msg:              'You have to Add Data first to generate your Template',
                 type:             'danger',
                 dismissOnTimeout: 10000,
-                identifier:       'add some Data to create a File'
+                identifier:       'add some Data to export a File'
             });
         }
     }
