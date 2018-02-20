@@ -21,7 +21,7 @@ export class DocumentTemplate implements OnInit
 
     private _currentWeekDateRange:Array<string> = [];
     private _customerData:Array<string> = [];
-    private _textForeachDay:Array<any> = [];
+    private _textForeachDay:Array<string> = [];
     private _dateRange:Array<string> = [];
     private _templateData:Array<any> = [];
 
