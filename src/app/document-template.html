@@ -57,7 +57,7 @@
             </div>
             <div class="form-block">
                 <terra-portlet inputPortletHeader="Neues Datum">
-                    <p>Aktuelles Datum: {{_currentWeekDateRange[0]['monday']}} - {{_currentWeekDateRange[0]['friday']}}</p>
+                    <p>Aktuelles Datum: {{_currentWeekDateRange['monday']}} - {{_currentWeekDateRange['friday']}}</p>
                     <div>
                         <terra-date-picker inputName="Startdatum"
                                            [(ngModel)]="_dateRange[0]">
@@ -68,7 +68,7 @@
                     </div>
                     <div>
                         <terra-button inputCaption="Save Date"
-                                      (outputClicked)="changeWeekDate()">
+                                      (outputClicked)="updateDateRange()">
                         </terra-button>
                     </div>
                 </terra-portlet>
@@ -156,7 +156,7 @@
                         <tr>
                             <td>
                                 <p align="RIGHT">
-                                    <strong>für die Woche vom</strong> {{_currentWeekDateRange[0]['monday']}} bis {{_currentWeekDateRange[0]['friday']}}
+                                    <strong>für die Woche vom</strong> {{_currentWeekDateRange['monday']}} bis {{_currentWeekDateRange['friday']}}
                                 </p>
                             </td>
                         </tr>
@@ -201,7 +201,7 @@
                     </tr>
                     <tr>
                         <td width="74">
-                            {{_currentWeekDateRange[0]['monday']}}
+                            {{_currentWeekDateRange['monday']}}
                         </td>
                         <td colspan="2" width="450">
                             <p align="LEFT" class="text" [innerHTML]="_textForeachDay['monday']">
@@ -219,7 +219,7 @@
                     </tr>
                     <tr>
                         <td width="74">
-                            {{_currentWeekDateRange[0]['tuesday']}}
+                            {{_currentWeekDateRange['tuesday']}}
                         </td>
                         <td colspan="2" width="450">
                             <p align="LEFT" class="text" [innerHTML]="_textForeachDay['tuesday']">
@@ -237,7 +237,7 @@
                     </tr>
                     <tr>
                         <td width="74">
-                            {{_currentWeekDateRange[0]['wednesday']}}
+                            {{_currentWeekDateRange['wednesday']}}
                         </td>
                         <td colspan="2" width="450">
                             <p align="LEFT" class="text" [innerHTML]="_textForeachDay['wednesday']">
@@ -255,7 +255,7 @@
                     </tr>
                     <tr>
                         <td width="74">
-                            {{_currentWeekDateRange[0]['thursday']}}
+                            {{_currentWeekDateRange['thursday']}}
                         </td>
                         <td colspan="2" width="450">
                             <p align="LEFT" class="text" [innerHTML]="_textForeachDay['thursday']">
@@ -273,7 +273,7 @@
                     </tr>
                     <tr>
                         <td width="74">
-                            {{_currentWeekDateRange[0]['friday']}}
+                            {{_currentWeekDateRange['friday']}}
                         </td>
                         <td colspan="2" width="450">
                             <p align="LEFT" class="text" [innerHTML]="_textForeachDay['friday']">

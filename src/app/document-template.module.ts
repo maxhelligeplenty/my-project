@@ -9,6 +9,7 @@ import { HttpModule } from '@angular/http';
 import { TranslationModule } from 'angular-l10n';
 import { FormsModule } from '@angular/forms';
 import { LocalizationConfig } from './core/localization/terra-localization.config';
+import { DateRangeService } from './service/date-range.service';
 
 @NgModule({
     imports:      [
@@ -22,6 +23,7 @@ import { LocalizationConfig } from './core/localization/terra-localization.confi
         DocumentTemplate,
     ],
     providers:    [
+        DateRangeService,
         LocalizationConfig,
         {
             provide:    APP_INITIALIZER,
