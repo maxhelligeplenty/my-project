@@ -21,7 +21,7 @@ export class DocumentTemplate implements OnInit
 
     private _currentWeekDateRange:Array<string> = [];
     private _customerData:Array<string> = [];
-    private _textForeachDay:Array<string> = [];
+    private _textForeachDay:Array<any> = [];
     private _dateRange:Array<string> = [];
     private _templateData:Array<any> = [];
 
@@ -111,16 +111,17 @@ export class DocumentTemplate implements OnInit
 
     private addData()
     {
-        if(!isNullOrUndefined(this._customerData[0]) && !isNullOrUndefined(this._customerData[1]) &&
-           !isNullOrUndefined(this._customerData[3]))
+        if(!isNullOrUndefined(this._customerData['firstname']) && !isNullOrUndefined(this._customerData['lastname']) &&
+           !isNullOrUndefined(this._customerData['number']))
         {
             let newDocument = document.getElementsByClassName("toHtml")[0].innerHTML.toString();
             let documentStream = btoa(newDocument);
             let fileURL:string = URL.createObjectURL(TerraPdfHelper.createPdfBlob(documentStream));
             this._templateData.push(
                 {
-                    "fileStream": fileURL,
-                    "fileName":   this._customerData[0] + '-' + this._customerData[1] + '-' + this._customerData[3] + '.odt'
+                    fileStream: fileURL,
+                    fileName:   this._customerData['firstname'] + '-'
+                                + this._customerData['lastname'] + '-' + this._customerData['number'] + '.odt'
                 });
         }
         else
@@ -163,6 +164,32 @@ export class DocumentTemplate implements OnInit
                 identifier:       'add some Data to export a File'
             });
         }
+    }
+
+    private addDefaultValues(type):void
+    {
+        switch(type)
+        {
+            case 'vac':
+                this._textForeachDay = [];
+                this.setTextValues('Urlaub');
+                break;
+            case 'sick':
+                this._textForeachDay = [];
+                this.setTextValues('Krank');
+                break;
+            default:
+                break;
+        }
+    }
+
+    private setTextValues(value):void
+    {
+        this._textForeachDay['monday'] = value;
+        this._textForeachDay['tuesday'] = value;
+        this._textForeachDay['wednesday'] = value;
+        this._textForeachDay['thursday'] = value;
+        this._textForeachDay['friday'] = value;
     }
 
 }
