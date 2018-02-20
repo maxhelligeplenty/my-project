@@ -1,6 +1,5 @@
 <terra-alert-panel></terra-alert-panel>
 <div class="user-interface">
-    <!--UserInterface (Overlay oder whatever) in eine eigene Komponente mit Save Data und get Data-->
     <terra-portlet>
         <div class="row">
             <div class="col-md-4">
@@ -58,6 +57,7 @@
             </div>
             <div class="form-block">
                 <terra-portlet inputPortletHeader="Neues Datum">
+                    <p>Aktuelles Datum: {{_currentWeekDateRange[0]['monday']}} - {{_currentWeekDateRange[0]['friday']}}</p>
                     <div>
                         <terra-date-picker inputName="Startdatum"
                                            [(ngModel)]="_dateRange[0]">
@@ -73,7 +73,7 @@
                     </div>
                 </terra-portlet>
                 <div class="form-block">
-                    <terra-portlet inputPortletHeader="Neues Datum">
+                    <terra-portlet inputPortletHeader="Default Werte">
                         <terra-button inputCaption="Urlaub"
                                       (outputClicked)="addDefaultValues('vac')">
                         </terra-button>
