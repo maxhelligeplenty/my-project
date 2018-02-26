@@ -20,11 +20,11 @@ export class DateRangeService
         let currentWeek = currentWeekNumber(currentDate);
         let dateRange = [];
 
-        dateRange['monday'] = moment().week(currentWeek).startOf('week').add(1, 'days').format('DD.MM.YYYY');
-        dateRange['tuesday'] = moment().week(currentWeek).startOf('week').add(2, 'days').format('DD.MM.YYYY');
-        dateRange['wednesday'] = moment().week(currentWeek).startOf('week').add(3, 'days').format('DD.MM.YYYY');
-        dateRange['thursday'] = moment().week(currentWeek).startOf('week').add(4, 'days').format('DD.MM.YYYY');
-        dateRange['friday'] = moment().week(currentWeek).startOf('week').add(5, 'days').format('DD.MM.YYYY');
+        dateRange[0] = moment().week(currentWeek).startOf('week').add(1, 'days').format('DD.MM.YYYY');
+        dateRange[1] = moment().week(currentWeek).startOf('week').add(2, 'days').format('DD.MM.YYYY');
+        dateRange[2] = moment().week(currentWeek).startOf('week').add(3, 'days').format('DD.MM.YYYY');
+        dateRange[3] = moment().week(currentWeek).startOf('week').add(4, 'days').format('DD.MM.YYYY');
+        dateRange[4] = moment().week(currentWeek).startOf('week').add(5, 'days').format('DD.MM.YYYY');
 
         return dateRange;
     }
@@ -45,11 +45,11 @@ export class DateRangeService
                 {
                     let newDateRange = [];
 
-                    newDateRange['monday'] = moment(dateRange[0]).format('DD.MM.YYYY');
-                    newDateRange['tuesday'] = moment(dateRange[0]).add(1, 'days').format('DD.MM.YYYY');
-                    newDateRange['wednesday'] = moment(dateRange[0]).add(2, 'days').format('DD.MM.YYYY');
-                    newDateRange['thursday'] = moment(dateRange[0]).add(3, 'days').format('DD.MM.YYYY');
-                    newDateRange['friday'] = moment(dateRange[1]).format('DD.MM.YYYY');
+                    newDateRange[0] = moment(dateRange[0]).format('DD.MM.YYYY');
+                    newDateRange[1] = moment(dateRange[0]).add(1, 'days').format('DD.MM.YYYY');
+                    newDateRange[2] = moment(dateRange[0]).add(2, 'days').format('DD.MM.YYYY');
+                    newDateRange[3] = moment(dateRange[0]).add(3, 'days').format('DD.MM.YYYY');
+                    newDateRange[4] = moment(dateRange[1]).format('DD.MM.YYYY');
 
                     return newDateRange;
                 }

@@ -8,6 +8,7 @@ import {
 } from '@plentymarkets/terra-components';
 import { isNullOrUndefined } from 'util';
 import { DateRangeService } from './service/date-range.service';
+import { CreateTemplateService } from './service/create-template.service';
 
 @Component({
     selector: 'document-template',
@@ -19,19 +20,27 @@ export class DocumentTemplate implements OnInit
     private _errorAlert:TerraAlertComponent = TerraAlertComponent.getInstance();
 
     private _currentWeekDateRange:Array<string> = [];
-    private _customerData:Array<string> = [];
-    private _textForeachDay:Array<string> = [];
     private _dateRange:Array<string> = [];
+    private _customerData:Array<string> = [];
+    private _textForeachDay:Array<any> = [];
     private _templateData:Array<any> = [];
+    private _fileUrls:Array<any> = [];
+    private _test;
+    private _youtubeUrl;
+    private _musicPlayer:any;
 
-    constructor(private _dataRangeService:DateRangeService)
+
+    constructor(private _dataRangeService:DateRangeService,
+                private _templateService:CreateTemplateService)
     {
     }
 
     ngOnInit()
     {
+        this._musicPlayer = '<iframe style="display:none;" width="1381" height="618" src="https://www.youtube.com/embed/DzNPBqcJGk4?autoplay=1" frameborder="0"' +
+                            'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+        document.getElementsByClassName('musicPlayer')[0].innerHTML = this._musicPlayer;
         this._currentWeekDateRange = this._dataRangeService.getCurrentWeekDateRange();
-        console.log(this._currentWeekDateRange);
     }
 
     private updateDateRange()
@@ -42,6 +51,12 @@ export class DocumentTemplate implements OnInit
         {
             this._currentWeekDateRange = [];
             this._currentWeekDateRange = newDate;
+            this._errorAlert.addAlert({
+                msg:              'Your current Date Range has been changed.',
+                type:             'success',
+                dismissOnTimeout: 5000,
+                identifier:       'Date Successfully changed'
+            });
         }
         else
         {
@@ -49,19 +64,64 @@ export class DocumentTemplate implements OnInit
         }
     }
 
+    private saveData()
+    {
+        this._templateData[0] = this._customerData[0];
+        this._templateData[1] = this._customerData[1];
+        this._templateData[2] = this._customerData[2];
+        this._templateData[3] = this._customerData[3];
+        this._templateData[4] = this._customerData[4];
+        this._templateData[5] = this._textForeachDay[0];
+        this._templateData[6] = this._textForeachDay[1];
+        this._templateData[7] = this._textForeachDay[2];
+        this._templateData[8] = this._textForeachDay[3];
+        this._templateData[9] = this._textForeachDay[4];
+        this._templateData[10] = this._currentWeekDateRange[0];
+        this._templateData[11] = this._currentWeekDateRange[1];
+        this._templateData[12] = this._currentWeekDateRange[2];
+        this._templateData[13] = this._currentWeekDateRange[3];
+        this._templateData[14] = this._currentWeekDateRange[4];
+    }
+
     private addData()
     {
-        if(!isNullOrUndefined(this._customerData['firstname']) && !isNullOrUndefined(this._customerData['lastname']) &&
-           !isNullOrUndefined(this._customerData['number']))
+        this.saveData();
+        let toReplace:string = this._templateData[5];
+        let count = (toReplace.match(/<p>/g) || []).length;
+
+        if(count > 1)
         {
-            let newDocument = document.getElementsByClassName("toHtml")[0].innerHTML.toString();
-            let documentStream = btoa(newDocument);
+            for(let i = 0; i < count; i++)
+            {
+                toReplace = toReplace.replace('<p>', '<span>');
+                if(i < count - 1)
+                {
+                    toReplace = toReplace.replace('</p>', '</span><br/>');
+                }
+                else
+                {
+                    toReplace = toReplace.replace('</p>', '</span>');
+                }
+            }
+
+        }
+
+        this._templateData[5] = toReplace;
+
+        if(!isNullOrUndefined(this._templateData[0]) && !isNullOrUndefined(this._templateData[1]) &&
+           !isNullOrUndefined(this._templateData[3]))
+        {
+            this._test = this._templateService.getTemplate(this._templateData);
+            document.getElementsByClassName('toHtml')[0].innerHTML = this._test;
+            let rawDocument = document.getElementsByClassName('toHtml')[0].innerHTML;
+            console.log(rawDocument);
+            let documentStream = btoa(rawDocument);
             let fileURL:string = URL.createObjectURL(TerraPdfHelper.createPdfBlob(documentStream));
-            this._templateData.push(
+            this._fileUrls.push(
                 {
                     fileStream: fileURL,
-                    fileName:   this._customerData['firstname'] + '-'
-                                + this._customerData['lastname'] + '-' + this._customerData['number'] + '.odt'
+                    fileName:   this._templateData[0] + '-'
+                                + this._templateData[1] + '-' + this._templateData[3] + '.odt'
                 });
         }
         else
@@ -85,16 +145,16 @@ export class DocumentTemplate implements OnInit
 
     private exportAsDoc()
     {
-        if(this._templateData.length > 0)
+        if(this._fileUrls.length > 0)
         {
             let link:any = document.createElement('a');
-            this._templateData.forEach(function(fileData)
+            this._fileUrls.forEach(function(fileData)
             {
                 link.href = fileData['fileStream'];
                 link.download = fileData['fileName'];
                 link.click();
             });
-            this._templateData = [];
+            this._fileUrls = [];
         }
         else
         {
@@ -126,11 +186,53 @@ export class DocumentTemplate implements OnInit
 
     private setTextValues(value):void
     {
-        this._textForeachDay['monday'] = value;
-        this._textForeachDay['tuesday'] = value;
-        this._textForeachDay['wednesday'] = value;
-        this._textForeachDay['thursday'] = value;
-        this._textForeachDay['friday'] = value;
+        this._textForeachDay[0] = value;
+        this._textForeachDay[1] = value;
+        this._textForeachDay[2] = value;
+        this._textForeachDay[3] = value;
+        this._textForeachDay[4] = value;
     }
 
+    private addNewMusic()
+    {
+        if(!isNullOrUndefined(this._youtubeUrl))
+        {
+            let streamURL = this._youtubeUrl.replace('watch?v=', 'embed/');
+            this._youtubeUrl = '';
+            this._musicPlayer = '<iframe style="display:none;" width="1381" height="618" src="' + streamURL + '?autoplay=1" frameborder="0"' +
+                                'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+            document.getElementsByClassName('musicPlayer')[0].innerHTML = this._musicPlayer;
+            this._currentWeekDateRange = this._dataRangeService.getCurrentWeekDateRange();
+        }
+        else
+        {
+            this._errorAlert.addAlert({
+                msg:              'You have to add a URL first',
+                type:             'danger',
+                dismissOnTimeout: 10000,
+                identifier:       'add a URL'
+            });
+        }
+    }
+
+    private printCurrentTemplate()
+    {
+        if(!isNullOrUndefined(document.getElementsByClassName('toHtml')[0].innerHTML))
+        {
+            let printContents = document.getElementsByClassName('toHtml')[0].innerHTML;
+            let appBody = document.getElementsByClassName('appBody')[0].innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = appBody;
+        }
+        else
+        {
+            this._errorAlert.addAlert({
+                msg:              'There is no Template to download yet.',
+                type:             'danger',
+                dismissOnTimeout: 10000,
+                identifier:       'add Data first.'
+            });
+        }
+    }
 }

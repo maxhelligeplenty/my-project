@@ -5,6 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
+    <style type="text/css">
+        @media print
+        {
+            @page
+            {
+                margin: 0;
+            }
+            
+            body
+            {
+                margin: 1.6cm;
+            }
+        }
+    </style>
 </head>
 <body>
 <document-template>
