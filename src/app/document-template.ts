@@ -26,9 +26,10 @@ export class DocumentTemplate implements OnInit
     private _textForeachDay:Array<any> = [];
     private _templateData:Array<any> = [];
     private _fileUrls:Array<any> = [];
-    private _test;
+    private _githubData:Array<string> = [];
     private _youtubeUrl;
     private _musicPlayer:any;
+    private _commitMessages:any = [];
 
 
     constructor(private _dataRangeService:DateRangeService,
@@ -39,10 +40,6 @@ export class DocumentTemplate implements OnInit
 
     ngOnInit()
     {
-        this._githubCommitService.getAllUserBranches('weekly-report-generator', 'maxhelligeplenty').subscribe((data) =>
-        {
-            console.log(data);
-        });
         this._musicPlayer = '<iframe style="display:none;" width="1381" height="618" src="https://www.youtube.com/embed/DzNPBqcJGk4?autoplay=1" frameborder="0"' +
                             'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
         //document.getElementsByClassName('musicPlayer')[0].innerHTML = this._musicPlayer;
@@ -117,8 +114,8 @@ export class DocumentTemplate implements OnInit
         if(!isNullOrUndefined(this._templateData[0]) && !isNullOrUndefined(this._templateData[1]) &&
            !isNullOrUndefined(this._templateData[3]))
         {
-            this._test = this._templateService.getTemplate(this._templateData);
-            document.getElementsByClassName('toHtml')[0].innerHTML = this._test;
+            let generatedTemplate = this._templateService.getTemplate(this._templateData);
+            document.getElementsByClassName('toHtml')[0].innerHTML = generatedTemplate;
             let rawDocument = document.getElementsByClassName('toHtml')[0].innerHTML;
             console.log(rawDocument);
             let documentStream = btoa(rawDocument);
@@ -241,4 +238,21 @@ export class DocumentTemplate implements OnInit
             });
         }
     }
+
+    private getAllCommitMessages(userName:string, branchName:string)
+    {
+        if(!isNullOrUndefined(userName) && !isNullOrUndefined(branchName))
+        {
+            this._githubCommitService.getAllUserBranches(branchName, userName).subscribe((res:any) =>
+            {
+                let entries:Array<string> = res.json();
+                entries.forEach((data) =>
+                {
+                    console.log(data['commit']['message']);
+                    console.log(data['commit']['committer']['date'].substring(0, data['commit']['committer']['date'].length - 10));
+                });
+            });
+        }
+    }
+
 }
