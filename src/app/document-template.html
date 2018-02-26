@@ -96,6 +96,19 @@
                             </terra-button>
                         </terra-portlet>
                     </div>
+                    <div class="form-block">
+                        <terra-portlet inputPortletHeader="Github Commits der Woche">
+                            <terra-text-input inputName="Username"
+                                              [(ngModel)]="_githubData[0]">
+                            </terra-text-input>
+                            <terra-text-input inputName="Branchname"
+                                              [(ngModel)]="_githubData[1]">
+                            </terra-text-input>
+                            <terra-button inputCaption="Github Commits"
+                                          (outputClicked)="getAllCommitMessages(_githubData[0],_githubData[1])">
+                            </terra-button>
+                        </terra-portlet>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
