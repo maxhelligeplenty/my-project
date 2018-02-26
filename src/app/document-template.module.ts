@@ -12,6 +12,7 @@ import { LocalizationConfig } from './core/localization/terra-localization.confi
 import { DateRangeService } from './service/date-range.service';
 import { CreateTemplateService } from './service/create-template.service';
 import { GithubCommitService } from './service/github-commit.service';
+import { GetCommitMessagesService } from './service/get-commit-messages.service';
 
 @NgModule({
     imports:      [
@@ -28,6 +29,7 @@ import { GithubCommitService } from './service/github-commit.service';
         DateRangeService,
         CreateTemplateService,
         GithubCommitService,
+        GetCommitMessagesService,
         LocalizationConfig,
         {
             provide:    APP_INITIALIZER,
