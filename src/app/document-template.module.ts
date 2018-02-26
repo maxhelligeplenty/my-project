@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { LocalizationConfig } from './core/localization/terra-localization.config';
 import { DateRangeService } from './service/date-range.service';
 import { CreateTemplateService } from './service/create-template.service';
+import { GithubCommitService } from './service/github-commit.service';
 
 @NgModule({
     imports:      [
@@ -26,6 +27,7 @@ import { CreateTemplateService } from './service/create-template.service';
     providers:    [
         DateRangeService,
         CreateTemplateService,
+        GithubCommitService,
         LocalizationConfig,
         {
             provide:    APP_INITIALIZER,

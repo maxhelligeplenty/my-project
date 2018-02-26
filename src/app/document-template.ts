@@ -9,6 +9,7 @@ import {
 import { isNullOrUndefined } from 'util';
 import { DateRangeService } from './service/date-range.service';
 import { CreateTemplateService } from './service/create-template.service';
+import { GithubCommitService } from './service/github-commit.service';
 
 @Component({
     selector: 'document-template',
@@ -31,15 +32,20 @@ export class DocumentTemplate implements OnInit
 
 
     constructor(private _dataRangeService:DateRangeService,
-                private _templateService:CreateTemplateService)
+                private _templateService:CreateTemplateService,
+                private _githubCommitService:GithubCommitService)
     {
     }
 
     ngOnInit()
     {
+        this._githubCommitService.getAllUserBranches('weekly-report-generator', 'maxhelligeplenty').subscribe((data) =>
+        {
+            console.log(data);
+        });
         this._musicPlayer = '<iframe style="display:none;" width="1381" height="618" src="https://www.youtube.com/embed/DzNPBqcJGk4?autoplay=1" frameborder="0"' +
                             'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-        document.getElementsByClassName('musicPlayer')[0].innerHTML = this._musicPlayer;
+        //document.getElementsByClassName('musicPlayer')[0].innerHTML = this._musicPlayer;
         this._currentWeekDateRange = this._dataRangeService.getCurrentWeekDateRange();
     }
 
