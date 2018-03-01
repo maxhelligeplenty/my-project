@@ -40,6 +40,11 @@ export class DocumentTemplate implements OnInit
 
     ngOnInit()
     {
+        this._textForeachDay[0] = '';
+        this._textForeachDay[1] = '';
+        this._textForeachDay[2] = '';
+        this._textForeachDay[3] = '';
+        this._textForeachDay[4] = '';
         this._musicPlayer = '<iframe style="display:none;" width="1381" height="618" src="https://www.youtube.com/embed/DzNPBqcJGk4?autoplay=1" frameborder="0"' +
                             'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
         //document.getElementsByClassName('musicPlayer')[0].innerHTML = this._musicPlayer;
@@ -67,7 +72,7 @@ export class DocumentTemplate implements OnInit
         }
     }
 
-    private saveData()
+    private saveTemplateData()
     {
         this._templateData[0] = this._customerData[0];
         this._templateData[1] = this._customerData[1];
@@ -88,28 +93,8 @@ export class DocumentTemplate implements OnInit
 
     private addData()
     {
-        this.saveData();
-        let toReplace:string = this._templateData[5];
-        let count = (toReplace.match(/<p>/g) || []).length;
-
-        if(count > 1)
-        {
-            for(let i = 0; i < count; i++)
-            {
-                toReplace = toReplace.replace('<p>', '<span>');
-                if(i < count - 1)
-                {
-                    toReplace = toReplace.replace('</p>', '</span><br/>');
-                }
-                else
-                {
-                    toReplace = toReplace.replace('</p>', '</span>');
-                }
-            }
-
-        }
-
-        this._templateData[5] = toReplace;
+        this.saveTemplateData();
+        this.convertText();
 
         if(!isNullOrUndefined(this._templateData[0]) && !isNullOrUndefined(this._templateData[1]) &&
            !isNullOrUndefined(this._templateData[3]))
@@ -141,7 +126,11 @@ export class DocumentTemplate implements OnInit
     private clearData()
     {
         this._customerData = [];
-        this._textForeachDay = [];
+        this._textForeachDay[0] = '';
+        this._textForeachDay[1] = '';
+        this._textForeachDay[2] = '';
+        this._textForeachDay[3] = '';
+        this._textForeachDay[4] = '';
         this._currentWeekDateRange = [];
         this._currentWeekDateRange = this._dataRangeService.getCurrentWeekDateRange();
     }
@@ -226,6 +215,7 @@ export class DocumentTemplate implements OnInit
             let appBody = document.getElementsByClassName('appBody')[0].innerHTML;
             document.body.innerHTML = printContents;
             window.print();
+            document.body.innerHTML = '';
             document.body.innerHTML = appBody;
         }
         else
@@ -239,20 +229,70 @@ export class DocumentTemplate implements OnInit
         }
     }
 
-    private getAllCommitMessages(userName:string, branchName:string)
+    private convertText()
+    {
+        let toReplace:string;
+        for(let i = 5; i < 10; i++)
+        {
+            toReplace = this._templateData[i];
+            let count = (toReplace.match(/<p>/g) || []).length;
+            if(count > 0)
+            {
+                for(let j = 0; j < count; j++)
+                {
+                    toReplace = toReplace.replace('<p>', '<span>');
+                    if(j < count - 1)
+                    {
+                        toReplace = toReplace.replace('</p>', '</span><br/>');
+                    }
+                    else
+                    {
+                        toReplace = toReplace.replace('</p>', '</span>');
+                    }
+                }
+
+            }
+            this._templateData[i] = toReplace;
+        }
+    }
+
+    private getAllCommitMessages(userName:string, repo:string, branchName:string, author:string)
     {
         if(!isNullOrUndefined(userName) && !isNullOrUndefined(branchName))
         {
-            this._githubCommitService.getAllUserBranches(branchName, userName).subscribe((res:any) =>
+            this._githubCommitService.getAllUserBranches(userName, repo, branchName).subscribe((res:any) =>
             {
                 let entries:Array<string> = res.json();
                 entries.forEach((data) =>
                 {
-                    console.log(data['commit']['message']);
-                    console.log(data['commit']['committer']['date'].substring(0, data['commit']['committer']['date'].length - 10));
+                    if(data['author']['login'] == author)
+                    {
+                        let checkDate = data['commit']['committer']['date'].substring(0,
+                            data['commit']['committer']['date'].length - 10);
+                        checkDate = checkDate.substring(8, 10) + '.' + checkDate.substring(5, 7) + '.' + checkDate.substring(0, 4);
+                        switch(checkDate)
+                        {
+                            case this._currentWeekDateRange[0]:
+                                this._textForeachDay[0] += data['commit']['message'] + '<br/>';
+                                break;
+                            case this._currentWeekDateRange[1]:
+                                this._textForeachDay[1] += data['commit']['message'] + '<br/>';
+                                break;
+                            case this._currentWeekDateRange[2]:
+                                this._textForeachDay[2] += data['commit']['message'] + '<br/>';
+                                break;
+                            case this._currentWeekDateRange[3]:
+                                this._textForeachDay[3] += data['commit']['message'] + '<br/>';
+                                break;
+                            case this._currentWeekDateRange[4]:
+                                this._textForeachDay[4] += data['commit']['message'] + '<br/>';
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 });
             });
         }
     }
-
 }

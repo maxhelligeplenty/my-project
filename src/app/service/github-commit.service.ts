@@ -10,10 +10,10 @@ export class GithubCommitService
     {
     }
 
-    public getAllUserBranches(branchName:string, userName:string):Observable<any>
+    public getAllUserBranches(user:string, repo:string, branch:string):Observable<any>
     {
         let headers = new Headers();
-        let url:string = 'https://api.github.com/repos/' + userName + '/' + branchName + '/commits';
+        let url:string = 'https://api.github.com/repos/' + user + '/' + repo + '/commits?sha=' + branch;
 
         return this._http.get(url,
             {
@@ -23,4 +23,3 @@ export class GithubCommitService
     }
 
 }
-
