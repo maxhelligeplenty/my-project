@@ -26,11 +26,6 @@ export class DocumentTemplate implements OnInit
     private _textForeachDay:Array<any> = [];
     private _templateData:Array<any> = [];
     private _fileUrls:Array<any> = [];
-    private _githubData:Array<string> = [];
-    private _youtubeUrl;
-    private _musicPlayer:any;
-    private _commitMessages:any = [];
-
 
     constructor(private _dataRangeService:DateRangeService,
                 private _templateService:CreateTemplateService,
@@ -45,9 +40,6 @@ export class DocumentTemplate implements OnInit
         this._textForeachDay[2] = '';
         this._textForeachDay[3] = '';
         this._textForeachDay[4] = '';
-        this._musicPlayer = '<iframe style="display:none;" width="1381" height="618" src="https://www.youtube.com/embed/DzNPBqcJGk4?autoplay=1" frameborder="0"' +
-                            'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-        //document.getElementsByClassName('musicPlayer')[0].innerHTML = this._musicPlayer;
         this._currentWeekDateRange = this._dataRangeService.getCurrentWeekDateRange();
     }
 
@@ -185,38 +177,19 @@ export class DocumentTemplate implements OnInit
         this._textForeachDay[4] = value;
     }
 
-    private addNewMusic()
-    {
-        if(!isNullOrUndefined(this._youtubeUrl))
-        {
-            let streamURL = this._youtubeUrl.replace('watch?v=', 'embed/');
-            this._youtubeUrl = '';
-            this._musicPlayer = '<iframe style="display:none;" width="1381" height="618" src="' + streamURL + '?autoplay=1" frameborder="0"' +
-                                'allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-            document.getElementsByClassName('musicPlayer')[0].innerHTML = this._musicPlayer;
-            this._currentWeekDateRange = this._dataRangeService.getCurrentWeekDateRange();
-        }
-        else
-        {
-            this._errorAlert.addAlert({
-                msg:              'You have to add a URL first',
-                type:             'danger',
-                dismissOnTimeout: 10000,
-                identifier:       'add a URL'
-            });
-        }
-    }
-
     private printCurrentTemplate()
     {
         if(!isNullOrUndefined(document.getElementsByClassName('toHtml')[0].innerHTML))
         {
-            let printContents = document.getElementsByClassName('toHtml')[0].innerHTML;
-            let appBody = document.getElementsByClassName('appBody')[0].innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = '';
-            document.body.innerHTML = appBody;
+            let printWindow = window.open('', 'PRINT', 'height=350,width=750');
+            printWindow.document.write('<html><head><title>' + document.title + '</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(document.getElementsByClassName('toHtml')[0].innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
         }
         else
         {
