@@ -77,7 +77,7 @@ export class CreateTemplateService
                                    </td>
                                   </tr>
                                    <tr>
-                                    <td width="74">
+                                    <td width="74" style="vertical-align: top;">
                                      ${templateData[10]}
                                     </td>
                                     <td colspan="2" width="450">
@@ -87,14 +87,12 @@ export class CreateTemplateService
                                      <p align="CENTER">
                                      </p>
                                     </td>
-                                    <td width="73">
-                                     <p align="CENTER">
+                                    <td width="73" style="vertical-align: bottom;" align="CENTER">
                                       ${templateData[15]}
-                                     </p>
                                     </td>
                                    </tr>
                                    <tr>
-                                    <td width="74">
+                                    <td width="74" style="vertical-align: top;">
                                      ${templateData[11]}
                                     </td>
                                     <td colspan="2" width="450">
@@ -104,14 +102,12 @@ export class CreateTemplateService
                                      <p align="CENTER">
                                      </p>
                                     </td>
-                                    <td width="73">
-                                     <p align="CENTER">
+                                    <td width="73" style="vertical-align: bottom;" align="CENTER">
                                       ${templateData[16]}
-                                     </p>
                                     </td>
                                    </tr>
                                    <tr>
-                                    <td width="74">
+                                    <td width="74" style="vertical-align: top;">
                                      ${templateData[12]}
                                     </td>
                                     <td colspan="2" width="450">
@@ -121,14 +117,12 @@ export class CreateTemplateService
                                      <p align="CENTER">
                                      </p>
                                     </td>
-                                    <td width="73">
-                                     <p align="CENTER">
+                                    <td width="73" style="vertical-align: bottom;" align="CENTER">
                                       ${templateData[17]}
-                                     </p>
                                     </td>
                                    </tr>
                                    <tr>
-                                    <td width="74">
+                                    <td width="74" style="vertical-align: top;">
                                      ${templateData[13]}
                                     </td>
                                     <td colspan="2" width="450">
@@ -138,14 +132,12 @@ export class CreateTemplateService
                                      <p align="CENTER">
                                      </p>
                                     </td>
-                                    <td width="73">
-                                     <p align="CENTER">
+                                    <td width="73" style="vertical-align: bottom;" align="CENTER">
                                       ${templateData[18]}
-                                     </p>
                                     </td>
                                    </tr>
                                    <tr>
-                                    <td width="74">
+                                    <td width="74" style="vertical-align: top;">
                                      ${templateData[14]}
                                     </td>
                                     <td colspan="2" width="450">
@@ -155,10 +147,8 @@ export class CreateTemplateService
                                      <p align="CENTER">
                                      </p>
                                     </td>
-                                    <td width="73">
-                                     <p align="CENTER">
+                                    <td width="73" style="vertical-align: bottom;" align="CENTER">
                                       ${templateData[19]}
-                                     </p>
                                     </td>
                                    </tr>
                                    <tr>
