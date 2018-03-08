@@ -152,15 +152,11 @@ export class CreateTemplateService
                                     </td>
                                    </tr>
                                    <tr>
-                                    <td colspan="4" width="622">
-                                     <p align="RIGHT">
+                                    <td colspan="4" width="622" style="padding: 10px;" align="RIGHT">
                                       <strong>Gesamtstunden der Ausbildungswoche</strong>
-                                     </p>
                                     </td>
-                                    <td width="73" valign="TOP">
-                                     <p align="CENTER">
+                                    <td width="73" style="padding: 10px;" align="CENTER">
                                       ${templateData[20]}
-                                     </p>
                                     </td>
                                    </tr>
                                    <tr valign="TOP">
