@@ -16,19 +16,6 @@
                     </terra-button>
                 </div>
                 <div class="col-md-8">
-                <span class="pull-lg-left">
-                    <div style="display:flex;">
-                        <terra-text-input class="test"
-                                          inputName="Youtube URL"
-                                          [(ngModel)]="_youtubeUrl">
-                        </terra-text-input>
-                        <terra-button inputIcon="icon-control_play"
-                                      inputTooltipText="Play Music"
-                                      inputTooltipPlacement="bottom"
-                                      (outputClicked)="addNewMusic()">
-                        </terra-button>
-                    </div>
-                </span>
                     <div class="btn-group pull-lg-right">
                         <terra-button inputIcon="icon-add"
                                       inputIsTertiary="true"
@@ -121,38 +108,73 @@
                 <div class="form-block">
                     <terra-portlet inputPortletHeader="Wochenberichte">
                         <div>
-                            <p>Montag</p>
-                            <terra-note-editor [inputPlaceholder]="'Was hast du Montag gemacht?'"
-                                               [(ngModel)]="_textForeachDay[0]">
-                            </terra-note-editor>
+                            <div>
+                                <p>Montag</p>
+                                <terra-note-editor [inputPlaceholder]="'Was hast du Montag gemacht?'"
+                                                   [(ngModel)]="_textForeachDay[0]">
+                                </terra-note-editor>
+                            </div>
+                            <div class="workTime">
+                                <terra-number-input inputName="Gesamtstunden"
+                                                    [(ngModel)]="_workTimePerDay[0]">
+                                </terra-number-input>
+                            </div>
                         </div>
                         <div>
-                            <p>Dienstag</p>
-                            <terra-note-editor
-                                [inputPlaceholder]="'Was hast du Dienstag gemacht?'"
-                                [(ngModel)]="_textForeachDay[1]">
-                            </terra-note-editor>
+                            <div>
+                                <p>Dienstag</p>
+                                <terra-note-editor
+                                    [inputPlaceholder]="'Was hast du Dienstag gemacht?'"
+                                    [(ngModel)]="_textForeachDay[1]">
+                                </terra-note-editor>
+                            </div>
+                            <div class="workTime">
+                                <terra-number-input inputName="Gesamtstunden"
+                                                    [(ngModel)]="_workTimePerDay[1]">
+                                </terra-number-input>
+                            </div>
                         </div>
                         <div>
-                            <p>Mittwoch</p>
-                            <terra-note-editor
-                                [inputPlaceholder]="'Was hast du Mittwoch gemacht?'"
-                                [(ngModel)]="_textForeachDay[2]">
-                            </terra-note-editor>
+                            <div>
+                                <p>Mittwoch</p>
+                                <terra-note-editor
+                                    [inputPlaceholder]="'Was hast du Mittwoch gemacht?'"
+                                    [(ngModel)]="_textForeachDay[2]">
+                                </terra-note-editor>
+                            </div>
+                            <div class="workTime">
+                                <terra-number-input inputName="Gesamtstunden"
+                                                    [(ngModel)]="_workTimePerDay[2]">
+                                </terra-number-input>
+                            </div>
                         </div>
                         <div>
-                            <p>Donnerstag</p>
-                            <terra-note-editor
-                                [inputPlaceholder]="'Was hast du Donnerstag gemacht?'"
-                                [(ngModel)]="_textForeachDay[3]">
-                            </terra-note-editor>
+                            <div>
+                                <p>Donnerstag</p>
+                                <terra-note-editor
+                                    [inputPlaceholder]="'Was hast du Donnerstag gemacht?'"
+                                    [(ngModel)]="_textForeachDay[3]">
+                                </terra-note-editor>
+                            </div>
+                            <div class="workTime">
+                                <terra-number-input inputName="Gesamtstunden"
+                                                    [(ngModel)]="_workTimePerDay[3]">
+                                </terra-number-input>
+                            </div>
                         </div>
                         <div>
-                            <p>Freitag</p>
-                            <terra-note-editor
-                                [inputPlaceholder]="'Was hast du Freitag gemacht?'"
-                                [(ngModel)]="_textForeachDay[4]">
-                            </terra-note-editor>
+                            <div>
+                                <p>Freitag</p>
+                                <terra-note-editor
+                                    [inputPlaceholder]="'Was hast du Freitag gemacht?'"
+                                    [(ngModel)]="_textForeachDay[4]">
+                                </terra-note-editor>
+                            </div>
+                            <div class="workTime">
+                                <terra-number-input inputName="Gesamtstunden"
+                                                    [(ngModel)]="_workTimePerDay[4]">
+                                </terra-number-input>
+                            </div>
                         </div>
                     </terra-portlet>
                 </div>
@@ -160,4 +182,5 @@
         </div>
     </div>
     <div class="toHtml">
+    </div>
 </div>

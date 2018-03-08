@@ -26,6 +26,8 @@ export class DocumentTemplate implements OnInit
     private _textForeachDay:Array<any> = [];
     private _templateData:Array<any> = [];
     private _fileUrls:Array<any> = [];
+    private _workTimePerDay:Array<number> = []
+    private _githubData:Array<string> = [];
 
     constructor(private _dataRangeService:DateRangeService,
                 private _templateService:CreateTemplateService,
@@ -40,6 +42,11 @@ export class DocumentTemplate implements OnInit
         this._textForeachDay[2] = '';
         this._textForeachDay[3] = '';
         this._textForeachDay[4] = '';
+        this._workTimePerDay[0] = 8;
+        this._workTimePerDay[1] = 8;
+        this._workTimePerDay[2] = 8;
+        this._workTimePerDay[3] = 8;
+        this._workTimePerDay[4] = 8;
         this._currentWeekDateRange = this._dataRangeService.getCurrentWeekDateRange();
     }
 
@@ -81,6 +88,13 @@ export class DocumentTemplate implements OnInit
         this._templateData[12] = this._currentWeekDateRange[2];
         this._templateData[13] = this._currentWeekDateRange[3];
         this._templateData[14] = this._currentWeekDateRange[4];
+        this._templateData[15] = this._workTimePerDay[0];
+        this._templateData[16] = this._workTimePerDay[1];
+        this._templateData[17] = this._workTimePerDay[2];
+        this._templateData[18] = this._workTimePerDay[3];
+        this._templateData[19] = this._workTimePerDay[4];
+        this._templateData[20] = this._workTimePerDay[0] + this._workTimePerDay[1] +
+                                 this._workTimePerDay[2] + this._workTimePerDay[3] + this._workTimePerDay[4];
     }
 
     private addData()
@@ -223,7 +237,6 @@ export class DocumentTemplate implements OnInit
                         toReplace = toReplace.replace('</p>', '</span>');
                     }
                 }
-
             }
             this._templateData[i] = toReplace;
         }

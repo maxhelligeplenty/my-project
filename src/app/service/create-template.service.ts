@@ -89,7 +89,7 @@ export class CreateTemplateService
                                     </td>
                                     <td width="73">
                                      <p align="CENTER">
-                                      0
+                                      ${templateData[15]}
                                      </p>
                                     </td>
                                    </tr>
@@ -106,7 +106,7 @@ export class CreateTemplateService
                                     </td>
                                     <td width="73">
                                      <p align="CENTER">
-                                      0
+                                      ${templateData[16]}
                                      </p>
                                     </td>
                                    </tr>
@@ -123,7 +123,7 @@ export class CreateTemplateService
                                     </td>
                                     <td width="73">
                                      <p align="CENTER">
-                                      0
+                                      ${templateData[17]}
                                      </p>
                                     </td>
                                    </tr>
@@ -140,7 +140,7 @@ export class CreateTemplateService
                                     </td>
                                     <td width="73">
                                      <p align="CENTER">
-                                      0
+                                      ${templateData[18]}
                                      </p>
                                     </td>
                                    </tr>
@@ -157,7 +157,7 @@ export class CreateTemplateService
                                     </td>
                                     <td width="73">
                                      <p align="CENTER">
-                                      0
+                                      ${templateData[19]}
                                      </p>
                                     </td>
                                    </tr>
@@ -169,7 +169,7 @@ export class CreateTemplateService
                                     </td>
                                     <td width="73" valign="TOP">
                                      <p align="CENTER">
-                                      00
+                                      ${templateData[20]}
                                      </p>
                                     </td>
                                    </tr>
