@@ -221,24 +221,27 @@ export class DocumentTemplate implements OnInit
         let toReplace:string;
         for(let i = 5; i < 10; i++)
         {
-            toReplace = this._templateData[i];
-            let count = (toReplace.match(/<p>/g) || []).length;
-            if(count > 0)
+            if(!isNullOrUndefined(this._templateData[i]))
             {
-                for(let j = 0; j < count; j++)
+                toReplace = this._templateData[i];
+                let count = (toReplace.match(/<p>/g) || []).length;
+                if(count > 0)
                 {
-                    toReplace = toReplace.replace('<p>', '<span>');
-                    if(j < count - 1)
+                    for(let j = 0; j < count; j++)
                     {
-                        toReplace = toReplace.replace('</p>', '</span><br/>');
-                    }
-                    else
-                    {
-                        toReplace = toReplace.replace('</p>', '</span>');
+                        toReplace = toReplace.replace('<p>', '');
+                        if(j < count - 1)
+                        {
+                            toReplace = toReplace.replace('</p>', '<br/>');
+                        }
+                        else
+                        {
+                            toReplace = toReplace.replace('</p>', '');
+                        }
                     }
                 }
+                this._templateData[i] = toReplace;
             }
-            this._templateData[i] = toReplace;
         }
     }
 
