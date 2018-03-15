@@ -10,6 +10,7 @@ import { isNullOrUndefined } from 'util';
 import { DateRangeService } from './service/date-range.service';
 import { CreateTemplateService } from './service/create-template.service';
 import { GithubCommitService } from './service/github-commit.service';
+import { CreateGoogleDocTemplateService } from './service/create-google-doc-template.service';
 
 @Component({
     selector: 'document-template',
@@ -31,7 +32,8 @@ export class DocumentTemplate implements OnInit
 
     constructor(private _dataRangeService:DateRangeService,
                 private _templateService:CreateTemplateService,
-                private _githubCommitService:GithubCommitService)
+                private _githubCommitService:GithubCommitService,
+                private _createGoogleDocTemplateService:CreateGoogleDocTemplateService)
     {
     }
 
@@ -101,21 +103,36 @@ export class DocumentTemplate implements OnInit
     {
         this.saveTemplateData();
         this.convertText();
+        let generatedTemplate = this._createGoogleDocTemplateService.getGoogleDocTemplate(this._templateData);
+
+        let lines = generatedTemplate.split('\n');
+        for(let i = 0; i < lines.length; i++)
+        {
+
+            try
+            {
+                let test = window.btoa(lines[i]);
+            }
+            catch(err)
+            {
+                console.log(i + " - " + lines[i]);
+            }
+        }​​​​​​​​
+
 
         if(!isNullOrUndefined(this._templateData[0]) && !isNullOrUndefined(this._templateData[1]) &&
            !isNullOrUndefined(this._templateData[3]))
         {
-            let generatedTemplate = this._templateService.getTemplate(this._templateData);
+            let generatedTemplate = this._createGoogleDocTemplateService.getGoogleDocTemplate(this._templateData);
             document.getElementsByClassName('toHtml')[0].innerHTML = generatedTemplate;
             let rawDocument = document.getElementsByClassName('toHtml')[0].innerHTML;
-            console.log(rawDocument);
-            let documentStream = btoa(rawDocument);
+            let documentStream = window.btoa(rawDocument);
             let fileURL:string = URL.createObjectURL(TerraPdfHelper.createPdfBlob(documentStream));
             this._fileUrls.push(
                 {
                     fileStream: fileURL,
                     fileName:   this._templateData[0] + '-'
-                                + this._templateData[1] + '-' + this._templateData[3] + '.odt'
+                                + this._templateData[1] + '-' + this._templateData[3] + '.docx'
                 });
         }
         else

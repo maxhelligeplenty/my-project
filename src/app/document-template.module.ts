@@ -12,6 +12,7 @@ import { LocalizationConfig } from './core/localization/terra-localization.confi
 import { DateRangeService } from './service/date-range.service';
 import { CreateTemplateService } from './service/create-template.service';
 import { GithubCommitService } from './service/github-commit.service';
+import { CreateGoogleDocTemplateService } from './service/create-google-doc-template.service';
 
 @NgModule({
     imports:      [
@@ -27,6 +28,7 @@ import { GithubCommitService } from './service/github-commit.service';
     providers:    [
         DateRangeService,
         CreateTemplateService,
+        CreateGoogleDocTemplateService,
         GithubCommitService,
         LocalizationConfig,
         {
