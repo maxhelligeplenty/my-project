@@ -3,7 +3,7 @@ import {
     NgModule
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { PluginTerraBasicComponent } from './plugin-terra-basic.component';
+import {DocumentTemplate, PluginTerraBasicComponent} from './document-template';
 import { StartComponent } from './views/start/start.component';
 import { HttpModule } from '@angular/http';
 import {
@@ -15,6 +15,9 @@ import { l10nConfig } from './core/localization/l10n.config';
 import { HttpClientModule } from '@angular/common/http';
 import { TerraComponentsModule } from '@plentymarkets/terra-components/app';
 import { RouterModule } from '@angular/router';
+import {GithubCommitService} from "./service/github-commit.service";
+import {CreateTemplateService} from "./service/create-template.service";
+import {DateRangeService} from "./service/date-range.service";
 
 @NgModule({
     imports:      [
@@ -27,8 +30,7 @@ import { RouterModule } from '@angular/router';
         TerraComponentsModule.forRoot()
     ],
     declarations: [
-        PluginTerraBasicComponent,
-        StartComponent
+        DocumentTemplate
     ],
     providers:    [
         {
@@ -36,7 +38,10 @@ import { RouterModule } from '@angular/router';
             useFactory: initL10n,
             deps:       [L10nLoader],
             multi:      true
-        }
+        },
+        DateRangeService,
+        CreateTemplateService,
+        GithubCommitService,
     ],
     bootstrap:    [
         PluginTerraBasicComponent
