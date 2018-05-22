@@ -2,55 +2,44 @@
     <terra-alert-panel></terra-alert-panel>
     <div class="user-interface">
         <terra-portlet>
-            <div class="row">
-                <div class="col-md-4">
-                    <terra-button inputIcon="icon-save"
-                                  inputTooltipText="Export As Doc"
-                                  inputTooltipPlacement="right"
-                                  (outputClicked)="exportAsDoc()">
-                    </terra-button>
-                    <terra-button inputIcon="icon-print"
-                                  inputTooltipText="Direct Print"
-                                  inputTooltipPlacement="right"
-                                  (outputClicked)="printCurrentTemplate()">
-                    </terra-button>
-                    <div>
-                        Anzahl: {{_templateCount}}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+                        <terra-button inputIcon="icon-save"
+                                      inputTooltipText="Export As Doc"
+                                      inputTooltipPlacement="right"
+                                      (outputClicked)="exportAsDoc()">
+                        </terra-button>
+                        <terra-button inputIcon="icon-print"
+                                      inputTooltipText="Direct Print"
+                                      inputTooltipPlacement="right"
+                                      (outputClicked)="printCurrentTemplate()">
+                        </terra-button>
+                        <div>
+                            Anzahl: {{_templateCount}}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-8">
-                <span class="pull-lg-left">
-                    <div style="display:flex;">
-                        <terra-text-input class="test"
-                                          inputName="Youtube URL"
-                                          [(ngModel)]="_youtubeUrl">
-                        </terra-text-input>
-                        <terra-button inputIcon="icon-control_play"
-                                      inputTooltipText="Play Music"
-                                      inputTooltipPlacement="bottom"
-                                      (outputClicked)="addNewMusic()">
-                        </terra-button>
-                    </div>
-                </span>
-                    <div class="btn-group pull-lg-right">
-                        <terra-button inputIcon="icon-add"
-                                      inputIsTertiary="true"
-                                      inputTooltipText="Add Data"
-                                      inputTooltipPlacement="bottom"
-                                      (outputClicked)="addData()">
-                        </terra-button>
-                        <terra-button inputIcon="icon-delete"
-                                      inputIsSecondary="true"
-                                      inputTooltipText="Clear Data"
-                                      inputTooltipPlacement="bottom"
-                                      (outputClicked)="clearData()">
-                        </terra-button>
+                    <div class="col-md-8">
+                        <div class="btn-group pull-lg-right">
+                            <terra-button inputIcon="icon-add"
+                                          inputIsTertiary="true"
+                                          inputTooltipText="Add Data"
+                                          inputTooltipPlacement="bottom"
+                                          (outputClicked)="addData()">
+                            </terra-button>
+                            <terra-button inputIcon="icon-delete"
+                                          inputIsSecondary="true"
+                                          inputTooltipText="Clear Data"
+                                          inputTooltipPlacement="bottom"
+                                          (outputClicked)="clearData()">
+                            </terra-button>
+                        </div>
                     </div>
                 </div>
             </div>
         </terra-portlet>
     </div>
-    <div>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-block">
@@ -123,40 +112,50 @@
             <div class="col-md-6">
                 <div class="form-block">
                     <terra-portlet inputPortletHeader="Wochenberichte">
-                        <div>
-                            <p>Montag</p>
-                            <terra-note-editor [inputPlaceholder]="'Was hast du Montag gemacht?'"
-                                               [(ngModel)]="_textForeachDay[0]">
-                            </terra-note-editor>
-                        </div>
-                        <div>
-                            <p>Dienstag</p>
-                            <terra-note-editor
-                                    [inputPlaceholder]="'Was hast du Dienstag gemacht?'"
-                                    [(ngModel)]="_textForeachDay[1]">
-                            </terra-note-editor>
-                        </div>
-                        <div>
-                            <p>Mittwoch</p>
-                            <terra-note-editor
-                                    [inputPlaceholder]="'Was hast du Mittwoch gemacht?'"
-                                    [(ngModel)]="_textForeachDay[2]">
-                            </terra-note-editor>
-                        </div>
-                        <div>
-                            <p>Donnerstag</p>
-                            <terra-note-editor
-                                    [inputPlaceholder]="'Was hast du Donnerstag gemacht?'"
-                                    [(ngModel)]="_textForeachDay[3]">
-                            </terra-note-editor>
-                        </div>
-                        <div>
-                            <p>Freitag</p>
-                            <terra-note-editor
-                                    [inputPlaceholder]="'Was hast du Freitag gemacht?'"
-                                    [(ngModel)]="_textForeachDay[4]">
-                            </terra-note-editor>
-                        </div>
+                        <terra-portlet>
+                            <div>
+                                <p>Montag</p>
+                                <terra-note-editor [inputPlaceholder]="'Was hast du Montag gemacht?'"
+                                                   [(ngModel)]="_textForeachDay[0]">
+                                </terra-note-editor>
+                            </div>
+                        </terra-portlet>
+                        <terra-portlet>
+                            <div>
+                                <p>Dienstag</p>
+                                <terra-note-editor
+                                        [inputPlaceholder]="'Was hast du Dienstag gemacht?'"
+                                        [(ngModel)]="_textForeachDay[1]">
+                                </terra-note-editor>
+                            </div>
+                        </terra-portlet>
+                        <terra-portlet>
+                            <div>
+                                <p>Mittwoch</p>
+                                <terra-note-editor
+                                        [inputPlaceholder]="'Was hast du Mittwoch gemacht?'"
+                                        [(ngModel)]="_textForeachDay[2]">
+                                </terra-note-editor>
+                            </div>
+                        </terra-portlet>
+                        <terra-portlet>
+                            <div>
+                                <p>Donnerstag</p>
+                                <terra-note-editor
+                                        [inputPlaceholder]="'Was hast du Donnerstag gemacht?'"
+                                        [(ngModel)]="_textForeachDay[3]">
+                                </terra-note-editor>
+                            </div>
+                        </terra-portlet>
+                        <terra-portlet>
+                            <div>
+                                <p>Freitag</p>
+                                <terra-note-editor
+                                        [inputPlaceholder]="'Was hast du Freitag gemacht?'"
+                                        [(ngModel)]="_textForeachDay[4]">
+                                </terra-note-editor>
+                            </div>
+                        </terra-portlet>
                     </terra-portlet>
                 </div>
             </div>
